@@ -1,0 +1,76 @@
+{% extends "foundation/base.html" %}
+{% load static %}
+
+
+{% block title %} {{ page_name }} {% endblock %}
+
+{% block content %}
+<div class="top-bar" id="main-menu">
+<div class="top-bar-right">
+    <ul class="dropdown menu" data-dropdown-menu>
+      {% if user.is_authenticated %}
+      <li><a href="/logout/">Logout</a></li>
+      {% else %}
+      <li><a href="/login/">Log In</a></li>
+      {% endif %}
+    </ul>
+  </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'home' %}">Home </a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
+                <li><a href="{% url 'map' %}">Map</a></li>
+                <li><a href="{% url 'facts' %}">Fact Sheet</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<div class="jumbotron">
+    <h2>Fact Sheet</h2>
+</div>
+  {% if user.is_authenticated %}
+      <h3 style="margin-left: 2.0in;">Add Facts</h3>
+      <form action="" method="post">
+        <div class="row">
+            {% csrf_token %}
+            <div class="large-4 columns">
+              {{ form.as_p }}
+            </div>
+            <div class="large-8 columns">
+        </div>
+       <p><input  type="submit" value="Submit"/></p>
+      </form>
+      {% endif %}
+  <div id="facted">
+    <div style="margin-left: 8in;">
+    <ul>
+      {% for  title, url, description in fact %}
+      <li><p>Title: {{ title }}  </p></li>
+        <p>URL: <a href="">{{ url }} </a></p>
+      <p>Description: <br>{{ description }} </p>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+{% endblock %}

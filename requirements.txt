@@ -1,0 +1,6 @@
+django==1.10.1
+django-geojson==2.10.0
+django-leaflet==0.22.0
+django-leaflet-storage==0.8.2
+django-phonenumber-field==1.2.0
+django-webpack-loader==0.4.1
